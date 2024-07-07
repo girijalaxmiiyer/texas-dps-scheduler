@@ -14,13 +14,14 @@ const configZod = z.object({
         typeId: z.number().optional(),
     }),
     location: z.object({
-        zipCode: z.string(),
+        zipCode: z.string().array(),
         pickDPSLocation: z.boolean().default(false),
         miles: z.number(),
         preferredDays: z.number().array(),
         sameDay: z.boolean(),
         daysAround: z
             .object({
+                startDate: z.string(),
                 start: z.number(),
                 end: z.number(),
             })
@@ -38,14 +39,6 @@ const configZod = z.object({
         webserver: z.boolean().default(false),
         headersTimeout: z.number().default(20000),
         maxRetry: z.number().default(3),
-    }),
-    webhook: z.object({
-        enable: z.boolean().default(false),
-        url: z.string().nullable(),
-        password: z.string().nullable(),
-        phoneNumber: z.string().nullable(),
-        sendMethod: z.union([z.literal('private-api'), z.literal('apple-script')]).default('apple-script'),
-        phoneNumberType: z.union([z.literal('iMessage'), z.literal('SMS')]).nullable(),
     }),
 });
 
